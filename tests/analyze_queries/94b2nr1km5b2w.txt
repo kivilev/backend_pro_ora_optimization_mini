@@ -1,0 +1,55 @@
+SQL Monitoring Report
+
+SQL Text
+------------------------------
+WITH DTH AS (SELECT TRUNC(SYSDATE - LEVEL + 1) DT FROM DUAL CONNECT BY LEVEL <= :B1 ), CUR_DATES AS (SELECT TRUNC(CREATE_DTIME) DT ,COUNT(1) PAYMENT_COUNT FROM PAYMENT T WHERE T.CREATE_DTIME >= TRUNC(SYSDATE - :B1 ) GROUP BY TRUNC(CREATE_DTIME)) SELECT DTH.DT PAYMENT_DAY ,NVL(T.PAYMENT_COUNT, 0) PAYMENT_COUNT FROM DTH LEFT JOIN CUR_DATES T ON T.DT = DTH.DT
+
+Global Information
+------------------------------
+ Status                                 :  DONE (ALL ROWS)                 
+ Instance ID                            :  1                               
+ Session                                :  KIVI (93:21017)                 
+ SQL ID                                 :  94b2nr1km5b2w                   
+ SQL Execution ID                       :  16777244                        
+ Execution Started                      :  03/10/2025 08:00:33             
+ First Refresh Time                     :  03/10/2025 08:00:37             
+ Last Refresh Time                      :  03/10/2025 08:00:37             
+ Duration                               :  4s                              
+ Module/Action                          :  DBMS_SCHEDULER/FILL_PAYMENT_JOB 
+ Service                                :  SYS$USERS                       
+ Program                                :  oracle@9e5a591ae658 (J001)      
+ PLSQL Entry Ids (Object/Subprogram)    :  73071,1                         
+ PLSQL Current Ids (Object/Subprogram)  :  73071,1                         
+ Fetch Calls                            :  1                               
+
+Binds
+========================================================================================================================
+| Name | Position |  Type  |                                           Value                                           |
+========================================================================================================================
+| :B1  |        1 | NUMBER | 45                                                                                        |
+| :B1  |        2 | NUMBER | 45                                                                                        |
+========================================================================================================================
+
+Global Stats
+================================================================
+| Elapsed |   Cpu   |    IO    | Fetch | Buffer | Read | Read  |
+| Time(s) | Time(s) | Waits(s) | Calls |  Gets  | Reqs | Bytes |
+================================================================
+|    4.04 |    1.23 |     2.81 |     1 |  45496 | 9644 | 284MB |
+================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=1292284833)
+============================================================================================================================================================================
+| Id |            Operation             |  Name   |  Rows   | Cost  |   Time    | Start  | Execs |   Rows   | Read | Read  |  Mem  | Activity |      Activity Detail       |
+|    |                                  |         | (Estim) |       | Active(s) | Active |       | (Actual) | Reqs | Bytes | (Max) |   (%)    |        (# samples)         |
+============================================================================================================================================================================
+|  0 | SELECT STATEMENT                 |         |         |       |         1 |     +4 |     1 |       45 |      |       |     . |          |                            |
+|  1 |   HASH JOIN OUTER                |         |       9 | 76584 |         1 |     +4 |     1 |       45 |      |       |   2MB |          |                            |
+|  2 |    VIEW                          |         |       1 |     2 |         1 |     +4 |     1 |       45 |      |       |     . |          |                            |
+|  3 |     CONNECT BY WITHOUT FILTERING |         |         |       |         1 |     +4 |     1 |       45 |      |       |  2048 |          |                            |
+|  4 |      FAST DUAL                   |         |       1 |     2 |         1 |     +4 |     1 |        1 |      |       |     . |          |                            |
+|  5 |    VIEW                          |         |     891 | 76582 |         1 |     +4 |     1 |       46 |      |       |     . |          |                            |
+|  6 |     HASH GROUP BY                |         |     891 | 76582 |         1 |     +4 |     1 |       46 |      |       |   1MB |          |                            |
+|  7 |      PARTITION RANGE ITERATOR    |         |      5M | 76427 |         1 |     +4 |     1 |       5M |      |       |     . |          |                            |
+|  8 |       TABLE ACCESS FULL          | PAYMENT |      5M | 76427 |         4 |     +1 |    46 |       5M | 9644 | 284MB |     . |   100.00 | db file scattered read (4) |
+============================================================================================================================================================================

@@ -1,0 +1,62 @@
+SQL Monitoring Report
+
+SQL Text
+------------------------------
+SELECT C.CLIENT_ID FROM CLIENT C JOIN WALLET W ON W.CLIENT_ID = C.CLIENT_ID JOIN ACCOUNT A ON A.WALLET_ID = W.WALLET_ID WHERE C.IS_ACTIVE = 1 AND A.CURRENCY_ID = :B1 ORDER BY A.BALANCE DESC FETCH FIRST 1 ROW ONLY
+
+Global Information
+------------------------------
+ Status                                 :  DONE (ALL ROWS)                                 
+ Instance ID                            :  1                                               
+ Session                                :  KIVI (371:4410)                                 
+ SQL ID                                 :  1ag25d978xvz0                                   
+ SQL Execution ID                       :  16777230                                        
+ Execution Started                      :  03/09/2025 09:29:22                             
+ First Refresh Time                     :  03/09/2025 09:29:26                             
+ Last Refresh Time                      :  03/09/2025 09:29:27                             
+ Duration                               :  5s                                              
+ Module/Action                          :  PL/SQL Developer/alter session set statisti ... 
+ Service                                :  orclpdb1                                        
+ Program                                :  plsqldev.exe                                    
+ PLSQL Entry Ids (Object/Subprogram)    :  83361,1                                         
+ PLSQL Current Ids (Object/Subprogram)  :  83361,1                                         
+ Fetch Calls                            :  1                                               
+
+Binds
+========================================================================================================================
+| Name | Position |  Type  |                                           Value                                           |
+========================================================================================================================
+| :B1  |        1 | NUMBER | 840                                                                                       |
+========================================================================================================================
+
+Global Stats
+===========================================================================
+| Elapsed |   Cpu   |    IO    |  Other   | Fetch | Buffer | Read | Read  |
+| Time(s) | Time(s) | Waits(s) | Waits(s) | Calls |  Gets  | Reqs | Bytes |
+===========================================================================
+|    4.23 |    0.58 |     1.33 |     2.32 |     1 |   9909 | 9717 |  76MB |
+===========================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=3521913535)
+=============================================================================================================================================================================================================
+| Id |                  Operation                   |            Name             |  Rows   | Cost  |   Time    | Start  | Execs |   Rows   | Read | Read  |  Mem  | Activity |       Activity Detail       |
+|    |                                              |                             | (Estim) |       | Active(s) | Active |       | (Actual) | Reqs | Bytes | (Max) |   (%)    |         (# samples)         |
+=============================================================================================================================================================================================================
+|  0 | SELECT STATEMENT                             |                             |         |       |         1 |     +5 |     1 |        1 |      |       |     . |          |                             |
+|  1 |   VIEW                                       |                             |       1 | 10042 |         1 |     +5 |     1 |        1 |      |       |     . |          |                             |
+|  2 |    WINDOW SORT PUSHED RANK                   |                             |       1 | 10042 |         1 |     +5 |     1 |        1 |      |       |  2048 |          |                             |
+|  3 |     NESTED LOOPS                             |                             |       1 | 10041 |         1 |     +5 |     1 |        2 |      |       |     . |          |                             |
+|  4 |      NESTED LOOPS                            |                             |       2 | 10041 |         1 |     +5 |     1 |        2 |      |       |     . |          |                             |
+|  5 |       HASH JOIN                              |                             |       2 | 10037 |         1 |     +5 |     1 |        1 |      |       |     . |          |                             |
+|  6 |        NESTED LOOPS                          |                             |       2 | 10037 |         1 |     +5 |     1 |        2 |      |       |     . |          |                             |
+|  7 |         STATISTICS COLLECTOR                 |                             |         |       |         1 |     +5 |     1 |        1 |      |       |     . |          |                             |
+|  8 |          TABLE ACCESS BY INDEX ROWID BATCHED | ACCOUNT                     |       2 | 10034 |         1 |     +5 |     1 |        2 |      |       |     . |          |                             |
+|  9 |           INDEX SKIP SCAN                    | ACCOUNT_WALLET_CURRENCY_UNQ |       2 | 10033 |         5 |     +1 |     1 |        2 | 9711 |  76MB |     . |   100.00 | Cpu (2)                     |
+|    |                                              |                             |         |       |           |        |       |          |      |       |       |          | db file sequential read (2) |
+| 10 |         TABLE ACCESS BY INDEX ROWID          | WALLET                      |       1 |     2 |         1 |     +5 |     2 |        2 |      |       |     . |          |                             |
+| 11 |          INDEX UNIQUE SCAN                   | WALLET_PK                   |       1 |     1 |         1 |     +5 |     2 |        2 |    3 | 24576 |     . |          |                             |
+| 12 |        TABLE ACCESS FULL                     | WALLET                      |       1 |     2 |           |        |       |          |      |       |     . |          |                             |
+| 13 |       INDEX UNIQUE SCAN                      | CLIENT_PK                   |       1 |     1 |         1 |     +5 |     2 |        2 |    3 | 24576 |     . |          |                             |
+| 14 |      TABLE ACCESS BY INDEX ROWID             | CLIENT                      |       1 |     2 |         1 |     +5 |     2 |        2 |      |       |     . |          |                             |
+=============================================================================================================================================================================================================
+

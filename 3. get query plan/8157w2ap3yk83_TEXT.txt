@@ -1,0 +1,45 @@
+SQL Monitoring Report
+
+SQL Text
+------------------------------
+SELECT COUNT(*) FROM CLIENT C ,PAYMENT P WHERE P.SUMMA > 999.9 AND P.CREATE_DTIME >= TRUNC(SYSDATE) - 7 AND C.IS_ACTIVE = 1
+
+Global Information
+------------------------------
+ Status                                 :  DONE (ALL ROWS)                                 
+ Instance ID                            :  1                                               
+ Session                                :  KIVI (371:4410)                                 
+ SQL ID                                 :  8157w2ap3yk83                                   
+ SQL Execution ID                       :  16777216                                        
+ Execution Started                      :  03/09/2025 09:29:53                             
+ First Refresh Time                     :  03/09/2025 09:30:00                             
+ Last Refresh Time                      :  03/09/2025 09:30:34                             
+ Duration                               :  41s                                             
+ Module/Action                          :  PL/SQL Developer/alter session set statisti ... 
+ Service                                :  orclpdb1                                        
+ Program                                :  plsqldev.exe                                    
+ PLSQL Entry Ids (Object/Subprogram)    :  83361,1                                         
+ PLSQL Current Ids (Object/Subprogram)  :  83361,1                                         
+ Fetch Calls                            :  1                                               
+
+Global Stats
+=================================================
+| Elapsed |   Cpu   |  Other   | Fetch | Buffer |
+| Time(s) | Time(s) | Waits(s) | Calls |  Gets  |
+=================================================
+|      41 |      41 |     0.16 |     1 |  30190 |
+=================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=2873736326)
+==============================================================================================================================================
+| Id |          Operation           |  Name   |  Rows   | Cost  |   Time    | Start  | Execs |   Rows   |  Mem  | Activity | Activity Detail |
+|    |                              |         | (Estim) |       | Active(s) | Active |       | (Actual) | (Max) |   (%)    |   (# samples)   |
+==============================================================================================================================================
+|  0 | SELECT STATEMENT             |         |         |       |        35 |     +7 |     1 |        1 |     . |          |                 |
+|  1 |   SORT AGGREGATE             |         |       1 |       |        39 |     +3 |     1 |        1 |     . |    42.50 | Cpu (17)        |
+|  2 |    MERGE JOIN CARTESIAN      |         |    318M |  770K |        40 |     +2 |     1 |     324M |     . |    32.50 | Cpu (13)        |
+|  3 |     PARTITION RANGE ITERATOR |         |      79 | 75305 |        35 |     +7 |     1 |       81 |     . |          |                 |
+|  4 |      TABLE ACCESS FULL       | PAYMENT |      79 | 75305 |        35 |     +7 |     8 |       81 |     . |          |                 |
+|  5 |     BUFFER SORT              |         |      4M |  695K |        38 |     +4 |    81 |     324M |  92MB |    22.50 | Cpu (9)         |
+|  6 |      TABLE ACCESS FULL       | CLIENT  |      4M |  8794 |         7 |     +1 |     1 |       4M |     . |     2.50 | Cpu (1)         |
+==============================================================================================================================================

@@ -1,0 +1,48 @@
+SQL Monitoring Report
+
+SQL Text
+------------------------------
+SELECT A.ACCOUNT_ID ,A.BALANCE ,C.ALFA3 FROM ACCOUNT A JOIN CURRENCY C ON A.CURRENCY_ID = C.CURRENCY_ID WHERE A.BALANCE < 0
+
+Global Information
+------------------------------
+ Status                                 :  DONE (ALL ROWS)                                 
+ Instance ID                            :  1                                               
+ Session                                :  KIVI (371:4410)                                 
+ SQL ID                                 :  2000kh7hcfuzp                                   
+ SQL Execution ID                       :  16777230                                        
+ Execution Started                      :  03/09/2025 09:29:19                             
+ First Refresh Time                     :  03/09/2025 09:29:22                             
+ Last Refresh Time                      :  03/09/2025 09:29:22                             
+ Duration                               :  3s                                              
+ Module/Action                          :  PL/SQL Developer/alter session set statisti ... 
+ Service                                :  orclpdb1                                        
+ Program                                :  plsqldev.exe                                    
+ PLSQL Entry Ids (Object/Subprogram)    :  83361,1                                         
+ PLSQL Current Ids (Object/Subprogram)  :  83361,1                                         
+ Fetch Calls                            :  1                                               
+
+Global Stats
+===========================================================================
+| Elapsed |   Cpu   |    IO    |  Other   | Fetch | Buffer | Read | Read  |
+| Time(s) | Time(s) | Waits(s) | Waits(s) | Calls |  Gets  | Reqs | Bytes |
+===========================================================================
+|    3.81 |    0.49 |     1.43 |     1.90 |     1 |  29237 | 7342 | 228MB |
+===========================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=819563787)
+=======================================================================================================================================================================
+| Id |            Operation            |    Name     |  Rows   | Cost  |   Time    | Start  | Execs |   Rows   | Read | Read  | Activity |      Activity Detail       |
+|    |                                 |             | (Estim) |       | Active(s) | Active |       | (Actual) | Reqs | Bytes |   (%)    |        (# samples)         |
+=======================================================================================================================================================================
+|  0 | SELECT STATEMENT                |             |         |       |           |        |     1 |          |      |       |          |                            |
+|  1 |   HASH JOIN                     |             |       1 | 11102 |           |        |     1 |          |      |       |          |                            |
+|  2 |    NESTED LOOPS                 |             |       1 | 11102 |           |        |     1 |          |      |       |          |                            |
+|  3 |     NESTED LOOPS                |             |       1 | 11102 |           |        |     1 |          |      |       |          |                            |
+|  4 |      STATISTICS COLLECTOR       |             |         |       |           |        |     1 |          |      |       |          |                            |
+|  5 |       TABLE ACCESS FULL         | ACCOUNT     |       1 | 11101 |         4 |     +0 |     1 |        0 | 7342 | 228MB |   100.00 | Cpu (3)                    |
+|    |                                 |             |         |       |           |        |       |          |      |       |          | db file scattered read (1) |
+|  6 |      INDEX UNIQUE SCAN          | CURRENCY_PK |       1 |       |           |        |       |          |      |       |          |                            |
+|  7 |     TABLE ACCESS BY INDEX ROWID | CURRENCY    |       1 |     1 |           |        |       |          |      |       |          |                            |
+|  8 |    TABLE ACCESS FULL            | CURRENCY    |       1 |     1 |           |        |       |          |      |       |          |                            |
+=======================================================================================================================================================================

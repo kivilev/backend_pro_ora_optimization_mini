@@ -16,3 +16,9 @@
 *.tps linguist-language=sql
 *.tpb linguist-detectable=sql
 *.tpb linguist-language=sql
+*.prc linguist-detectable=sql
+*.prc linguist-language=sql
+*.fnc linguist-detectable=sql
+*.fnc linguist-language=sql
+*.jb linguist-detectable=sql
+*.jb linguist-language=sql
