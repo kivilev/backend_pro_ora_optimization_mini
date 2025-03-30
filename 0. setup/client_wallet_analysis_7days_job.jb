@@ -1,9 +1,19 @@
+/*
+  Education course: Oracle SQL Optimization
+  Author: Kivilev Denis (https://t.me/oracle_dbd, http://backend-pro.ru)
+
+  Lesson: 0. setup
+  
+  Description: Scheduler job to run the client wallet analysis procedure every 10 minutes
+  
+*/
+
 begin
-  sys.dbms_scheduler.create_job(job_name            => 'CLIENT_WALLET_ANALYSIS_7DAYS_JOB',
+  sys.dbms_scheduler.create_job(job_name            => 'KIVI.CLIENT_WALLET_ANALYSIS_7DAYS_JOB',
                                 job_type            => 'STORED_PROCEDURE',
-                                job_action          => 'client_wallet_analysis_proc_7days',
-                                start_date          => to_date('09-03-2025 04:59:54', 'dd-mm-yyyy hh24:mi:ss'),
-                                repeat_interval     => 'FREQ=HOURLY; INTERVAL=1',
+                                job_action          => 'client_wallet_analysis_7days_proc',
+                                start_date          => systimestamp,
+                                repeat_interval     => 'Freq=minutely;Interval=10',
                                 end_date            => to_date(null),
                                 job_class           => 'DEFAULT_JOB_CLASS',
                                 enabled             => true,

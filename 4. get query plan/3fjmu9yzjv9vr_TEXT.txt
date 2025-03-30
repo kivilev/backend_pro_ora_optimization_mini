@@ -1,0 +1,45 @@
+SQL Monitoring Report
+
+SQL Text
+------------------------------
+SELECT COUNT(C.CLIENT_ID) FROM CLIENT C ,TABLE(:B1 ) T WHERE C.IS_ACTIVE = 1
+
+Global Information
+------------------------------
+ Status                                 :  DONE (ALL ROWS)                                 
+ Instance ID                            :  1                                               
+ Session                                :  KIVI (297:51289)                                
+ SQL ID                                 :  3fjmu9yzjv9vr                                   
+ SQL Execution ID                       :  16777220                                        
+ Execution Started                      :  03/29/2025 11:26:57                             
+ First Refresh Time                     :  03/29/2025 11:27:00                             
+ Last Refresh Time                      :  03/29/2025 11:27:58                             
+ Duration                               :  61s                                             
+ Module/Action                          :  DBMS_SCHEDULER/CLIENT_WALLET_ANALYSIS_7DAYS_JOB 
+ Service                                :  SYS$USERS                                       
+ Program                                :  oracle@bdbda00b6ff4 (J000)                      
+ PLSQL Entry Ids (Object/Subprogram)    :  75607,1                                         
+ PLSQL Current Ids (Object/Subprogram)  :  75607,1                                         
+ Fetch Calls                            :  1                                               
+
+Global Stats
+=================================================================================
+| Elapsed |   Cpu   |    IO    | Fetch | Buffer | Read  | Read  | Write | Write |
+| Time(s) | Time(s) | Waits(s) | Calls |  Gets  | Reqs  | Bytes | Reqs  | Bytes |
+=================================================================================
+|      62 |      61 |     0.66 |     1 |  22901 | 17699 |   3GB |    69 |  12MB |
+=================================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=3529707127)
+=======================================================================================================================================================================================================
+| Id |               Operation               |  Name  |  Rows   | Cost |   Time    | Start  | Execs |   Rows   | Read  | Read  | Write | Write |  Mem  | Temp  | Activity |      Activity Detail      |
+|    |                                       |        | (Estim) |      | Active(s) | Active |       | (Actual) | Reqs  | Bytes | Reqs  | Bytes | (Max) | (Max) |   (%)    |        (# samples)        |
+=======================================================================================================================================================================================================
+|  0 | SELECT STATEMENT                      |        |         |      |        59 |     +3 |     1 |        1 |       |       |       |       |     . |     . |          |                           |
+|  1 |   SORT AGGREGATE                      |        |       1 |      |        59 |     +3 |     1 |        1 |       |       |       |       |     . |     . |     3.23 | Cpu (2)                   |
+|  2 |    MERGE JOIN CARTESIAN               |        |    900M |   3M |        59 |     +3 |     1 |     900M |       |       |       |       |     . |     . |          |                           |
+|  3 |     COLLECTION ITERATOR PICKLER FETCH |        |     300 |   39 |        59 |     +3 |     1 |      300 |       |       |       |       |     . |     . |          |                           |
+|  4 |     BUFFER SORT                       |        |      3M |   3M |        62 |     +1 |   300 |     900M | 17699 |   3GB |    69 |  12MB |   2MB |  12MB |    96.77 | Cpu (55)                  |
+|    |                                       |        |         |      |           |        |       |          |       |       |       |       |       |       |          | direct path read temp (5) |
+|  5 |      TABLE ACCESS FULL                | CLIENT |      3M | 8794 |         1 |     +3 |     1 |       3M |       |       |       |       |     . |     . |          |                           |
+=======================================================================================================================================================================================================

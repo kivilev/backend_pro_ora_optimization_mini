@@ -10,7 +10,7 @@
   
 */
 
-select *
+select t.job_name, t.job_type, t.job_action, t.*
   from dba_scheduler_jobs t
  where t.job_name = 'CLIENT_WALLET_ANALYSIS_7DAYS_JOB'
  order by t.job_name desc;
@@ -20,8 +20,16 @@ select *
  where t.job_name = 'CLIENT_WALLET_ANALYSIS_7DAYS_JOB'
  order by t.log_date desc;
 
-select *
+select t.job_name
+       ,t.log_date
+       ,substr(t.session_id, 0, instr(t.session_id, ',')-1) sid
+       ,substr(t.session_id, instr(t.session_id, ',')+1) serial
+       ,t.run_duration
+       ,t.cpu_used
+       ,'----'
+       ,t.*
   from dba_scheduler_job_run_details t
  where t.job_name = 'CLIENT_WALLET_ANALYSIS_7DAYS_JOB'
+   and t.status = 'SUCCEEDED'
  order by t.log_date desc;
 

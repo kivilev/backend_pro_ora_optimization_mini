@@ -1,9 +1,19 @@
-create or replace procedure client_wallet_analysis_proc_7days is
+/*
+  Education course: Oracle SQL Optimization
+  Author: Kivilev Denis (https://t.me/oracle_dbd, http://backend-pro.ru)
+
+  Lesson: 0. setup
+  
+  Description: Initial client wallet analysis procedure with unoptimized queries
+  
+*/
+
+create or replace procedure client_wallet_analysis_7days_proc is
   /*
   ​The procedure analyzes client and wallet data over the past seven days,
   including counts of active clients and wallets, total accounts, payment statistics, currency distribution,
   negative balances, high-value transactions, and retrieves profiles of VIP clients
-  */  
+  */
   v_active_client_count    number;
   v_active_wallet_count    number;
   v_total_account_count    number;
@@ -61,6 +71,9 @@ create or replace procedure client_wallet_analysis_proc_7days is
     ,client_name varchar2(200 char));
   type payment_client_mapping_tab is table of payment_client_mapping_rec index by pls_integer;
   v_payment_client_mapping payment_client_mapping_tab;
+
+  v_client_ids t_numbers;
+  v_active_client_ids t_numbers;
 
 begin
   dbms_output.put_line('Procedure has started');
@@ -126,7 +139,8 @@ begin
 
   -- Query 9: Determining VIP client (by highest USD balance)
   begin
-    select c.client_id
+    select /*+ use_hash(c w) full(a) full(w) parallel(w 2) paralel(a 2)*/
+     c.client_id
       into v_client_id
       from client c
       join wallet w
@@ -151,6 +165,7 @@ begin
     join wallet w
       on c.client_id = w.client_id
    where w.status_id = 1
+     and c.is_active = 1
      and rownum <= 5;
 
   -- Query 11: Analysis of recent payments (over the last 7 days)
@@ -168,53 +183,43 @@ begin
    fetch first 5 rows only;
 
   -- Query 12: Get suspicious transactions
-  select /*+ use_hash(p c) */p.payment_id
-        ,p.summa
-        ,c.alfa3
-        ,p.create_dtime
+  select /*+ use_hash(p c) */
+   p.payment_id
+  ,p.summa
+  ,c.alfa3
+  ,p.create_dtime
     bulk collect
     into v_suspicious_transactions
     from payment p
     join currency c
       on p.currency_id = c.currency_id
-   where p.summa > 999.9
+   where p.summa > 900
      and p.create_dtime >= trunc(sysdate) - 7
    order by p.summa desc
    fetch first 5 rows only;
 
-  -- Query 13: Retrieve the number of all inactive clients who sent payments > 900
-  select count(*)
-    into v_high_value_us_tx_count
-    from client  c
-        ,payment p
-   where p.summa > 999.9
-     and p.create_dtime >= trunc(sysdate) - 7
-     and p.from_client_id = c.client_id
-     and c.is_active = 1;
+  -- Query 13: Retrieve the number of 300 random user with balance > 1000
+  select t.client_id
+    bulk collect
+    into v_client_ids
+    from account t
+   where t.balance > 1000
+     and rownum <= 300;
+     
+  select count(c.client_id)
+    into v_active_client_count 
+    from client c
+        ,table(v_client_ids) t
+   where c.is_active = 1;
 
-  -- Query 14: Retrieving VIP client profile (or first client if no VIP)
-  begin
-    if v_client_id is null then
-      begin
-        select client_id into v_client_id from client where rownum = 1;
-      exception
-        when no_data_found then
-          v_client_id := null;
-      end;
-    end if;
-  
-    select cdf.name
-          ,cd.field_value
-      bulk collect
-      into v_client_profile
-      from client_data cd
-      join client_data_field cdf
-        on cd.field_id = cdf.field_id
-     where cd.client_id = v_client_id;
-  exception
-    when no_data_found then
-      null;
-  end;
+  -- Query 14: Retrieving count of active 30 years people
+  select count(*)
+    into v_active_client_count
+    from table(v_client_ids) c
+    join client_data cd
+      on cd.client_id = value(c)
+   where cd.field_id = 3
+     and to_date(cd.field_value, 'YYYY-MM-DD') >= add_months(sysdate, -12 * 30);
 
   dbms_output.put_line('Procedure has ended. Spent time: ' ||
                        to_char(systimestamp - v_start_time));

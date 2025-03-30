@@ -9,8 +9,8 @@
 */
 
 -- sys
-alter system set "_sqlmon_recycle_time" = 86400 scope = both; -- 1 сутки
-alter system set "_sqlmon_max_plan" = 1000 scope = both; -- 1000 запросов сохраняются
+alter system set "_sqlmon_recycle_time" = 300 scope = both; -- 5 minutes
+alter system set "_sqlmon_max_plan" = 40 scope = both; -- 20*CPU
 
 
 -- SHOW PARAMETER _sqlmon;
@@ -23,5 +23,5 @@ select ksppinm, ksppstvl, ksppdesc
 order by ksppinm;
 
 
--- параметры сохранения данных в AWR
+-- parameters for data retention in AWR
 select * from dba_hist_wr_control;

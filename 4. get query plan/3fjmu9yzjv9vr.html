@@ -340,7 +340,7 @@
       <b> SQL Text</b>
       <hr size="3" align="left"/>
     </font>
-    <p>SELECT COUNT(*) FROM CLIENT C ,PAYMENT P WHERE P.SUMMA &gt; 999.9 AND P.CREATE_DTIME &gt;= TRUNC(SYSDATE) - 7 AND C.IS_ACTIVE = 1</p>
+    <p>SELECT COUNT(C.CLIENT_ID) FROM CLIENT C ,TABLE(:B1 ) T WHERE C.IS_ACTIVE = 1</p>
     <font class="s9">
       <b> Global Information: </b>
     </font>
@@ -357,6 +357,7 @@
           <table border="1" ora_borderstyle="headeronly" cellspacing="0" cellpadding="0" align="left" width="100%">
             <tr class="s16">
               <th width="19%">Buffer Gets</th>
+              <th width="19%">IO Requests</th>
               <th width="19%">Database Time</th>
               <th width="19%">Wait Activity</th>
             </tr>
@@ -369,7 +370,7 @@
                         <tbody>
                           <tr>
                             <td class="bar">
-                              <div class="div_buffer_gets" style="                     width:100%                   " title="Buffer Gets: 30190">
+                              <div class="div_buffer_gets" style="                     width:100%                   " title="Buffer Gets: 22901">
                                 <P class="nodisp">.</P>
                               </div>
                             </td>
@@ -377,7 +378,7 @@
                         </tbody>
                       </table>
                     </td>
-                    <td align="left">30190</td>
+                    <td align="left">22901</td>
                   </tbody>
                 </table>
               </td>
@@ -389,7 +390,7 @@
                         <tbody>
                           <tr>
                             <td class="bar">
-                              <div class="div_cpu_time" style="                     width:99%                   " title="Cpu - 41.03s (99%)">
+                              <div class="div_read_reqs" style="                     width:99%                   " title="Read Requests: 17699 = 3.4GB (99%)">
                                 <P class="nodisp">.</P>
                               </div>
                             </td>
@@ -397,7 +398,30 @@
                         </tbody>
                       </table>
                     </td>
-                    <td align="left">41s</td>
+                    <td align="left">17768</td>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <table cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <td style="          width:80%        ">
+                      <table class="graph" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="bar">
+                              <div class="div_cpu_time" style="                     width:98%                   " title="Cpu - 61.44s (98%)">
+                                <P class="nodisp">.</P>
+                              </div>
+                              <div class="div_user_io_wait_time" style="                     width:1%                   " title="IO Time - .66s (1.1%)">
+                                <P class="nodisp">.</P>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td align="left">62s</td>
                   </tbody>
                 </table>
               </td>
@@ -409,7 +433,21 @@
                 </table>
                 <table border="0" cellspacing="0" cellpadding="0" width="100%">
                   <tbody>
-                    <td align="left"/>
+                    <td style="       width:100%     ">
+                      <table class="graph" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="bar">
+                              <div class="                     activity div_UserIO" style="                     width:90%                   " title="User I/O:direct path read temp (5-&gt;100.0%)">
+                                <P class="nodisp">.</P>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td align="left">100%
+        </td>
                   </tbody>
                 </table>
               </td>
@@ -420,62 +458,62 @@
       <tr>
         <th align="left">Session</th>
         <th>:</th>
-        <td>KIVI (371:4410)</td>
+        <td>KIVI (297:51289)</td>
       </tr>
       <tr>
         <th align="left">SQL ID </th>
         <th>:</th>
-        <td>8157w2ap3yk83</td>
+        <td>3fjmu9yzjv9vr</td>
       </tr>
       <tr>
         <th align="left">SQL Execution ID</th>
         <th>:</th>
-        <td>16777216</td>
+        <td>16777220</td>
       </tr>
       <tr>
         <th align="left">Execution Started</th>
         <th>:</th>
-        <td>03/09/2025 09:29:53</td>
+        <td>03/29/2025 11:26:57</td>
       </tr>
       <tr>
         <th align="left">First Refresh Time</th>
         <th>:</th>
-        <td>03/09/2025 09:30:00</td>
+        <td>03/29/2025 11:27:00</td>
       </tr>
       <tr>
         <th align="left">Last Refresh Time</th>
         <th>:</th>
-        <td>03/09/2025 09:30:34</td>
+        <td>03/29/2025 11:27:58</td>
       </tr>
       <tr>
         <th align="left">Duration</th>
         <th>:</th>
-        <td>41s</td>
+        <td>61s</td>
       </tr>
       <tr>
         <th align="left">Module/Action</th>
         <th>:</th>
-        <td>PL/SQL Developer/alter session set statisti ...</td>
+        <td>DBMS_SCHEDULER/CLIENT_WALLET_ANALYSIS_7DAYS_JOB</td>
       </tr>
       <tr>
         <th align="left">Service</th>
         <th>:</th>
-        <td>orclpdb1</td>
+        <td>SYS$USERS</td>
       </tr>
       <tr>
         <th align="left">Program</th>
         <th>:</th>
-        <td>plsqldev.exe</td>
+        <td>oracle@bdbda00b6ff4 (J000)</td>
       </tr>
       <tr>
         <th align="left">PL/SQL Entry Ids</th>
         <th>:</th>
-        <td>83361,1</td>
+        <td>75607,1</td>
       </tr>
       <tr>
         <th align="left">PL/SQL Ids (Obj/Sub)</th>
         <th>:</th>
-        <td>83361,1</td>
+        <td>75607,1</td>
       </tr>
       <tr>
         <th align="left">Fetch Calls</th>
@@ -487,7 +525,7 @@
     <br/>
     <font class="s9">
       <a name="xplan"/>
-      <b> SQL Plan Monitoring Details (Plan Hash Value=2873736326)</b>
+      <b> SQL Plan Monitoring Details (Plan Hash Value=3529707127)</b>
       <hr size="1" align="left"/>
     </font>
     <table width="100%" border="1" cellspacing="0" cellpadding="0" ora_borderstyle="headeronly">
@@ -505,7 +543,7 @@
                     Active Period
        
                     <br/>
-                    (41s)
+                    (61s)
                 </th>
         <th>Execs</th>
         <th>Rows</th>
@@ -545,12 +583,12 @@
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:30:00 -&gt;  09:30:34">
+              <tr title=" 11:27:00 -&gt;  11:27:58">
                 <td class="bar">
-                  <div style="                         width:17%                       ">
+                  <div style="                         width:5%                       ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div class="                       active_period                     83%                 " style="                   width:83%                 ">
+                  <div class="                       active_period                     95%                 " style="                   width:95%                 ">
                     <P class="nodisp">.</P>
                   </div>
                 </td>
@@ -599,12 +637,15 @@
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:29:56 -&gt;  09:30:34">
+              <tr title=" 11:27:00 -&gt;  11:27:58">
                 <td class="bar">
-                  <div style="                         width:7%                       ">
+                  <div style="                         width:5%                       ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div class="                       active_period                     93%                 " style="                   width:93%                 ">
+                  <div class="                       active_period                     94%                 " style="                   width:94%                 ">
+                    <P class="nodisp">.</P>
+                  </div>
+                  <div style="                         width:1%                       ">
                     <P class="nodisp">.</P>
                   </div>
                 </td>
@@ -630,12 +671,12 @@
         <td align="left">
           <table border="0" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <td style="       width:100%     ">
+              <td style="       width:4%     ">
                 <table class="graph" cellspacing="0" cellpadding="0" width="100%">
                   <tbody>
                     <tr>
                       <td class="bar">
-                        <div class="                     activity div_Cpu" style="                     width:90%                   " title="Cpu (17-&gt;42.5%)">
+                        <div class="                     activity div_Cpu" style="                     width:60%                   " title="Cpu (2-&gt;3.5%)">
                           <P class="nodisp">.</P>
                         </div>
                       </td>
@@ -643,8 +684,8 @@
                   </tbody>
                 </table>
               </td>
-              <td align="left">42%
-        </td>
+              <td align="left">3.5%
+          </td>
             </tbody>
           </table>
         </td>
@@ -668,12 +709,12 @@
         <td align="left">
           <P class="nodisp">.</P>
         </td>
-        <td>318M</td>
-        <td>770K</td>
+        <td>900M</td>
+        <td>3M</td>
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:29:55 -&gt;  09:30:34">
+              <tr title=" 11:27:00 -&gt;  11:27:58">
                 <td class="bar">
                   <div style="                         width:5%                       ">
                     <P class="nodisp">.</P>
@@ -687,7 +728,7 @@
           </table>
         </td>
         <td>1</td>
-        <td>324M</td>
+        <td>900M</td>
         <td>
           <P class="nodisp">.</P>
         </td>
@@ -702,32 +743,10 @@
           </table>
         </td>
         <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td style="       width:77%     ">
-                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
-                  <tbody>
-                    <tr>
-                      <td class="bar">
-                        <div class="                     activity div_Cpu" style="                     width:90%                   " title="Cpu (13-&gt;32.5%)">
-                          <P class="nodisp">.</P>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td align="left">32%
-        </td>
-            </tbody>
-          </table>
+          <P class="nodisp">.</P>
         </td>
         <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td align="left"/>
-            </tbody>
-          </table>
+          <P class="nodisp">.</P>
         </td>
       </tr>
       <tr align="right" class="s17b">
@@ -737,22 +756,22 @@
         <td align="right" class="             noleft pxtype_QC           " title="Serial Execution">3</td>
         <td align="left">
           <font color="#F1F5DD">...</font>
-                    PARTITION RANGE ITERATOR
+                    COLLECTION ITERATOR PICKLER FETCH
                 </td>
         <td align="left">
           <P class="nodisp">.</P>
         </td>
-        <td>79</td>
-        <td>75305</td>
+        <td>300</td>
+        <td>39</td>
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:30:00 -&gt;  09:30:34">
+              <tr title=" 11:27:00 -&gt;  11:27:58">
                 <td class="bar">
-                  <div style="                         width:17%                       ">
+                  <div style="                         width:5%                       ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div class="                       active_period                     83%                 " style="                   width:83%                 ">
+                  <div class="                       active_period                     95%                 " style="                   width:95%                 ">
                     <P class="nodisp">.</P>
                   </div>
                 </td>
@@ -761,7 +780,7 @@
           </table>
         </td>
         <td>1</td>
-        <td>81</td>
+        <td>300</td>
         <td>
           <P class="nodisp">.</P>
         </td>
@@ -788,21 +807,23 @@
         </td>
         <td align="right" class="             noleft pxtype_QC           " title="Serial Execution">4</td>
         <td align="left">
-          <font color="#F5F5F5">....</font>
-                    TABLE ACCESS FULL
+          <font color="#F5F5F5">...</font>
+                    BUFFER SORT
                 </td>
-        <td align="left">PAYMENT</td>
-        <td>79</td>
-        <td>75305</td>
+        <td align="left">
+          <P class="nodisp">.</P>
+        </td>
+        <td>3M</td>
+        <td>3M</td>
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:30:00 -&gt;  09:30:34">
+              <tr title=" 11:26:58 -&gt;  11:27:59">
                 <td class="bar">
-                  <div style="                         width:17%                       ">
+                  <div style="                         width:2%                       ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div class="                       active_period                     83%                 " style="                   width:83%                 ">
+                  <div class="                       active_period                     98%                 " style="                   width:98%                 ">
                     <P class="nodisp">.</P>
                   </div>
                 </td>
@@ -810,26 +831,71 @@
             </tbody>
           </table>
         </td>
-        <td>8</td>
-        <td>81</td>
-        <td>
-          <P class="nodisp">.</P>
-        </td>
-        <td>
-          <P class="nodisp">.</P>
-        </td>
+        <td>300</td>
+        <td>900M</td>
+        <td>1.9MB</td>
+        <td>12.0MB</td>
         <td align="left">
           <table cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <td align="left"/>
+              <td style="          width:60%        ">
+                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="bar">
+                        <div class="div_read_reqs" style="                     width:99%                   " title="Read Requests: 17699 = 3.4GB (99%)">
+                          <P class="nodisp">.</P>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td align="left">17768</td>
             </tbody>
           </table>
         </td>
         <td align="left">
-          <P class="nodisp">.</P>
+          <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tbody>
+              <td style="       width:100%     ">
+                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="bar">
+                        <div class="                     activity div_Cpu" style="                     width:90%                   " title="Cpu (55-&gt;96.5%)">
+                          <P class="nodisp">.</P>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td align="left">96%
+        </td>
+            </tbody>
+          </table>
         </td>
         <td align="left">
-          <P class="nodisp">.</P>
+          <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tbody>
+              <td style="       width:100%     ">
+                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="bar">
+                        <div class="                     activity div_UserIO" style="                     width:90%                   " title="User I/O:direct path read temp (5-&gt;100.0%)">
+                          <P class="nodisp">.</P>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td align="left">100%
+        </td>
+            </tbody>
+          </table>
         </td>
       </tr>
       <tr align="right" class="s17b">
@@ -838,96 +904,24 @@
         </td>
         <td align="right" class="             noleft pxtype_QC           " title="Serial Execution">5</td>
         <td align="left">
-          <font color="#F1F5DD">...</font>
-                    BUFFER SORT
-                </td>
-        <td align="left">
-          <P class="nodisp">.</P>
-        </td>
-        <td>4M</td>
-        <td>695K</td>
-        <td align="left">
-          <table class="graph" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <tr title=" 09:29:57 -&gt;  09:30:34">
-                <td class="bar">
-                  <div style="                         width:10%                       ">
-                    <P class="nodisp">.</P>
-                  </div>
-                  <div class="                       active_period                     90%                 " style="                   width:90%                 ">
-                    <P class="nodisp">.</P>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-        <td>81</td>
-        <td>324M</td>
-        <td>91.6MB</td>
-        <td>
-          <P class="nodisp">.</P>
-        </td>
-        <td align="left">
-          <table cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td align="left"/>
-            </tbody>
-          </table>
-        </td>
-        <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td style="       width:53%     ">
-                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
-                  <tbody>
-                    <tr>
-                      <td class="bar">
-                        <div class="                     activity div_Cpu" style="                     width:90%                   " title="Cpu (9-&gt;22.5%)">
-                          <P class="nodisp">.</P>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td align="left">22%
-        </td>
-            </tbody>
-          </table>
-        </td>
-        <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td align="left"/>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      <tr align="right" class="s17a">
-        <td align="center" class="             noright pxtype_QC           ">
-          <P class="nodisp">.</P>
-        </td>
-        <td align="right" class="             noleft pxtype_QC           " title="Serial Execution">6</td>
-        <td align="left">
-          <font color="#F5F5F5">....</font>
+          <font color="#F1F5DD">....</font>
                     TABLE ACCESS FULL
                 </td>
         <td align="left">CLIENT</td>
-        <td>4M</td>
+        <td>3M</td>
         <td>8794</td>
         <td align="left">
           <table class="graph" cellspacing="0" cellpadding="0" width="100%">
             <tbody>
-              <tr title=" 09:29:54 -&gt;  09:30:00">
+              <tr title=" 11:27:00 -&gt;  11:27:00">
                 <td class="bar">
-                  <div style="                         width:2%                       ">
+                  <div style="                         width:5%                       ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div class="                       active_period                     17%                 " style="                   width:17%                 ">
+                  <div class="                       active_period                     2%                 " style="                   width:2%                 ">
                     <P class="nodisp">.</P>
                   </div>
-                  <div style="                         width:81%                       ">
+                  <div style="                         width:93%                       ">
                     <P class="nodisp">.</P>
                   </div>
                 </td>
@@ -936,7 +930,7 @@
           </table>
         </td>
         <td>1</td>
-        <td>4M</td>
+        <td>3M</td>
         <td>
           <P class="nodisp">.</P>
         </td>
@@ -951,32 +945,10 @@
           </table>
         </td>
         <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td style="       width:6%     ">
-                <table class="graph" cellspacing="0" cellpadding="0" width="100%">
-                  <tbody>
-                    <tr>
-                      <td class="bar">
-                        <div class="                     activity div_Cpu" style="                     width:60%                   " title="Cpu (1-&gt;2.5%)">
-                          <P class="nodisp">.</P>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td align="left">2.5%
-          </td>
-            </tbody>
-          </table>
+          <P class="nodisp">.</P>
         </td>
         <td align="left">
-          <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tbody>
-              <td align="left"/>
-            </tbody>
-          </table>
+          <P class="nodisp">.</P>
         </td>
       </tr>
     </table>

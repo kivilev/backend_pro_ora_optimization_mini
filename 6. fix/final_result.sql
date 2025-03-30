@@ -1,3 +1,13 @@
+/*
+  Education course: Oracle SQL Optimization
+  Author: Kivilev Denis (https://t.me/oracle_dbd, http://backend-pro.ru)
+
+  Lesson: 6. fix
+  
+  Description: Final optimized procedure version with refactored queries
+
+*/
+
 create or replace procedure client_wallet_analysis_proc_7days is
   /*
   ​The procedure analyzes client and wallet data over the past seven days,

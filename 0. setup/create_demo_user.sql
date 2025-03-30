@@ -1,4 +1,11 @@
 /*
+  Education course: Oracle SQL Optimization
+  Author: Kivilev Denis (https://t.me/oracle_dbd, http://backend-pro.ru)
+
+  Lesson: 0. setup
+  
+  Description: Script creates the DEMO user in an Oracle database with the necessary privileges for the course
+
 This script creates the DEMO user in an Oracle database with the default password "booble12". 
 It grants the necessary privileges for connecting to the database, reading tables and system dictionaries, 
 and executing SQL monitoring functions. Additionally, it ensures the password does not expire and limits 
