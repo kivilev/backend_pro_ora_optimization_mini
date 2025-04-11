@@ -10,15 +10,15 @@
 
 ---- source query
 select count(c.client_id)
-  from client c
-      ,table(t_numbers(:b1)) t
- where c.is_active = 1
+  from kivi.client c
+      ,table(kivi.t_numbers(:b1)) t
+ where c.is_active = 1;
 
 
----- get rif of merje join cartesian
+---- get rid of merje join cartesian
 select count(c.client_id)
-  from client c
-      ,table(t_numbers(:b1)) t
+  from kivi.client c
+      ,table(kivi.t_numbers(:b1)) t
  where c.is_active = 1
    and c.client_id = value(t);
 
@@ -26,8 +26,8 @@ select count(c.client_id)
 ---- define size of collection
 select /*+ cardinality (t 500) */
        count(c.client_id)
-  from client c
-      ,table(t_numbers(:b1)) t
+  from kivi.client c
+      ,table(kivi.t_numbers(:b1)) t
  where c.is_active = 1
    and c.client_id = value(t);
 
@@ -35,7 +35,7 @@ select /*+ cardinality (t 500) */
 ---- final version
 select /*+ cardinality (t 500) use_nl(t c) leading(t c)*/
        count(c.client_id)
-  from table(t_numbers(:b1)) t
-  join client c on c.client_id = value(t) and c.is_active = 1;
+  from table(kivi.t_numbers(:b1)) t
+  join kivi.client c on c.client_id = value(t) and c.is_active = 1;
 
 

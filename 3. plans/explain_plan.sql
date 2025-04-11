@@ -18,7 +18,7 @@ select * from v$sqlarea t where t.sql_id = '3fjmu9yzjv9vr';
 -- getting explain plan
 explain plan for
 select count(c.client_id)
-          from client c
+          from kivi.client c
               ,table(t_numbers(:b1)) t
          where c.is_active = 1;
  
